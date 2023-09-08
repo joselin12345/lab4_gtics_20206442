@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Emplloyee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+</head>
+<body>
+<main>
+    <div class="container px-4 py-5">
+        <h1 class="pb-2 border-bottom">Lista de empleados</h1>
+        <form method="post" th:action="@{/employee/buscarPorNombre}">
+            <div class="input-group mb-3">
+                <input name="searchField" class="form-control" type="text" placeholder="Buscar por nombre" th:value="${textoBuscado}" >
+                <button class="btn btn-primary" type="submit">Buscar</button>
+                <a class="btn btn-outline-secondary" th:href="@{/employee}">Limpiar</a>
+            </div>
+        </form>
+        <table class="table table-sm">
+            <tr>
+                <th>Número de Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Puesto</th>
+                <th>Departamento</th>
+                <th>Ciudad</th>
+                <th>Número de teléfono</th>
+                <th>Salario</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr th:each="employee, info : ${listaEmpleado}">
+                <td th:text="${info.index + 1}"></td>
+                <td th:text="${employee.getFirst_name()}"></td>
+                <td th:text="${employee.getJob_id()}"></td>
+                <td th:text="${employee.getDepartment_id()}"></td>
+                <td th:text="${employee.getDepartment_id()}"></td>
+                <td th:text="${employee.getPhone_number()}"></td>
+                <td th:text="${employee.getSalary()}"></td>
+                <td><a class="btn btn-primary" th:href="@{'/employee/edit?id=' + ${employee.getEmployee_id()}}">Editar</a>
+                </td>
+                <td><a class="btn btn-primary" th:href="@{'/employee/editPhone?id=' + ${employee.getEmployee_id()}}">Editar solo phone</a>
+                </td>
+                <td><a class="btn btn-danger" th:href="@{'/employee/editSalary?id=' + ${employee.getEmployee_id()}}">Editar el salario</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+</html>
